@@ -11,18 +11,23 @@ window.TrelloPowerUp.initialize({
     };
   },
   'card-badges': (t, opts) => {
-    let commandDate, prodDate, installDate;
+    let cardId, commandDate, prodDate, installDate;
     return t
-    .card('all')
+      .card('id')
+      .get('id')
+      .then((data) => {
+        cardId = data;
+        return t.get(cardId, 'shared', 'command-date');
+      })
       .then((data) => {
         console.log(data);
         commandDate = Number(data.slice(-2));
-        t.get('prod-date')
+        return t.get(cardId, 'shared', 'prod-date');
       })
       .then((data) => {
         console.log(data);
         prodDate = Number(data.slice(-2));
-        t.get('install-date')
+        return t.get(cardId, 'shared', 'install-date');
       })
       .then((data) => {
         console.log(data);
