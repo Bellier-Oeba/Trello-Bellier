@@ -20,25 +20,28 @@ window.TrelloPowerUp.initialize({
         return t.get(cardId, 'shared', 'command-date');
       })
       .then((data) => {
-        console.log(data);
-        commandDate = Number(data.slice(-2));
+        if (data !== undefined) {
+          commandDate = Number(data.slice(-2));
+        }
         return t.get(cardId, 'shared', 'prod-date');
       })
       .then((data) => {
-        console.log(data);
-        prodDate = Number(data.slice(-2));
+        if (data !== undefined) {
+          prodDate = Number(data.slice(-2));
+        }
         return t.get(cardId, 'shared', 'install-date');
       })
       .then((data) => {
-        console.log(data);
-        installDate = data;
+        if (data !== undefined) {
+          installDate = data;
+        }
 
         // Now, build badges list
         const badges = [];
 
         if (commandDate !== undefined) {
           badges.push({
-            text: commandDate,
+            text: 'Sem ' + commandDate,
             icon: './images/buy.svg',
             color: null,
           })
@@ -46,7 +49,7 @@ window.TrelloPowerUp.initialize({
 
         if (prodDate !== undefined) {
           badges.push({
-            text: prodDate,
+            text: 'Sem ' + prodDate,
             icon: './images/build.svg',
             color: null,
           })
@@ -60,7 +63,6 @@ window.TrelloPowerUp.initialize({
           })
         }
 
-        console.log(badges);
         return badges;
       })
       .catch((error) => console.error(error));

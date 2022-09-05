@@ -20,18 +20,15 @@ install.addEventListener('change', () => {
 
 trello.get('card', 'shared', 'command-date')
   .then((data) => {
-    console.log(JSON.stringify(data, null, 2));
     command.value = data;
   });
 
 trello.get('card', 'shared', 'prod-date')
   .then((data) => {
-    console.log(JSON.stringify(data, null, 2));
     prod.value = data;
   });
 
 trello.get('card', 'shared', 'install-date')
   .then((data) => {
-    console.log(JSON.stringify(data, null, 2));
     install.value = data;
   });
