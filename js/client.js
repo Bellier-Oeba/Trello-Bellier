@@ -1,13 +1,8 @@
-const STAIR_ICON = 'https://raw.githubusercontent.com/Bellier-Oeba/Trello-Bellier/gh-pages/images/stairs.svg';
-const COMMAND_ICON = 'https://raw.githubusercontent.com/Bellier-Oeba/Trello-Bellier/gh-pages/images/buy.svg';
-const PROD_ICON = 'https://raw.githubusercontent.com/Bellier-Oeba/Trello-Bellier/gh-pages/images/build.svg';
-const INSTALL_ICON = 'https://raw.githubusercontent.com/Bellier-Oeba/Trello-Bellier/gh-pages/images/home-build.svg';
-
 window.TrelloPowerUp.initialize({
   'card-back-section': (t, options) => {
     return {
       title: 'Bellier',
-      icon: STAIR_ICON,
+      icon: './images/stairs.svg',
       content: {
         type: 'iframe',
         url: t.signUrl('./section.html'),
@@ -19,14 +14,17 @@ window.TrelloPowerUp.initialize({
     let commandDate, prodDate, installDate;
     return t.get('command-date')
       .then((data) => {
+        console.log(data);
         commandDate = Number(data.slice(-2));
         t.get('prod-date')
       })
       .then((data) => {
+        console.log(data);
         prodDate = Number(data.slice(-2));
         t.get('install-date')
       })
       .then((data) => {
+        console.log(data);
         installDate = data;
 
         // Now, build badges list
@@ -35,7 +33,7 @@ window.TrelloPowerUp.initialize({
         if (commandDate !== undefined) {
           badges.push({
             text: commandDate,
-            icon: COMMAND_ICON,
+            icon: './images/buy.svg',
             color: null,
           })
         }
@@ -43,7 +41,7 @@ window.TrelloPowerUp.initialize({
         if (prodDate !== undefined) {
           badges.push({
             text: prodDate,
-            icon: PROD_ICON,
+            icon: './images/build.svg',
             color: null,
           })
         }
@@ -51,13 +49,14 @@ window.TrelloPowerUp.initialize({
         if (installDate !== undefined) {
           badges.push({
             text: installDate,
-            icon: INSTALL_ICON,
+            icon: './images/home-build.svg',
             color: null,
           })
         }
 
+        console.log(badges);
         return badges;
       })
-      .catch((error) => console.log(error));
+      .catch((error) => console.error(error));
   },
 });
