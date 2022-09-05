@@ -73,18 +73,17 @@ window.TrelloPowerUp.initialize({
       .then(() => {
         return [{
           text: 'Date de fabrication',
-          callback: (t, opts) => {
+          callback: async (t, opts) => {
             const cards = [];
 
-            opts.cards.forEach(c => {
-              t.get(c.id, 'shared', 'prod-date')
-                .then((data) => {
-                  cards.push({
-                    id: c.id,
-                    date: Number(data.slice(-2)) || 60
-                  })
-                })
-            });
+            for (const c of opts.cards) {
+              const date = await t.get(c.id, 'shared', 'prod-date');
+              date ? Number(date.slice(-2)) : 60;
+              cards.push({
+                id: c.id,
+                date
+              })
+            }
 
             cards.sort((a, b) => {
               if (a.date > b.date) {
