@@ -1,5 +1,25 @@
-.content {
+.bel-content {
     display: flex;
     flex-direction: row;
     gap: 1rem;
+}
+
+.bel-input {
+	background-color: #091e420a;
+	border: transparent;
+	padding: .3rem .5rem;
+	border-radius: .2rem;
+}
+
+.bel-input:hover {
+	cursor: pointer;
+    outline: #0079bf auto 1px;
+}
+
+.bel-input:active {
+    outline: #0079bf auto 1px;
+}
+
+.bel-input:focus-visible {
+    outline: #0079bf auto 1px;
 }
