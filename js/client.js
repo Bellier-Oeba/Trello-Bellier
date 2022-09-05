@@ -8,7 +8,7 @@ window.TrelloPowerUp.initialize({
       content: {
         type: 'iframe',
         url: t.signUrl('./section.html'),
-        height: 150,
+        height: 90,
       },
     };
   }
