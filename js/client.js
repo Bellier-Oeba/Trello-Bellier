@@ -14,14 +14,14 @@ window.TrelloPowerUp.initialize({
   },
   'card-badges': (t, opts) => {
     let commandDate, prodDate, installDate;
-    trello.get('card', 'shared', 'command-date')
+    t.get('card', 'shared', 'command-date')
       .then((data) => {
         commandDate = Number(data.slice(-2));
-        trello.get('card', 'shared', 'prod-date')
+        t.get('card', 'shared', 'prod-date')
       })
       .then((data) => {
         prodDate = Number(data.slice(-2));
-        trello.get('card', 'shared', 'install-date')
+        t.get('card', 'shared', 'install-date')
       })
       .then((data) => {
         installDate = data;
