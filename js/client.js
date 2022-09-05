@@ -1,13 +1,8 @@
-const STAIR_ICON = 'https://raw.githubusercontent.com/Bellier-Oeba/Trello-Bellier/gh-pages/images/stairs.svg';
-const COMMAND_ICON = 'https://raw.githubusercontent.com/Bellier-Oeba/Trello-Bellier/gh-pages/images/buy.svg';
-const PROD_ICON = 'https://raw.githubusercontent.com/Bellier-Oeba/Trello-Bellier/gh-pages/images/build.svg';
-const INSTALL_ICON = 'https://raw.githubusercontent.com/Bellier-Oeba/Trello-Bellier/gh-pages/images/home-build.svg';
-
 window.TrelloPowerUp.initialize({
   'card-back-section': (t, options) => {
     return {
       title: 'Bellier',
-      icon: STAIR_ICON,
+      icon: './images/stairs.svg',
       content: {
         type: 'iframe',
         url: t.signUrl('./section.html'),
@@ -17,14 +12,14 @@ window.TrelloPowerUp.initialize({
   },
   'card-badges': (t, opts) => {
     let commandDate, prodDate, installDate;
-    return t.get('card', 'shared', 'command-date')
+    return t.get('command-date')
       .then((data) => {
         commandDate = Number(data.slice(-2));
-        t.get('card', 'shared', 'prod-date')
+        t.get('prod-date')
       })
       .then((data) => {
         prodDate = Number(data.slice(-2));
-        t.get('card', 'shared', 'install-date')
+        t.get('install-date')
       })
       .then((data) => {
         installDate = data;
@@ -35,7 +30,7 @@ window.TrelloPowerUp.initialize({
         if (commandDate !== undefined) {
           badges.push({
             text: commandDate,
-            icon: COMMAND_ICON,
+            icon: './images/buy.svg',
             color: null,
           })
         }
@@ -43,7 +38,7 @@ window.TrelloPowerUp.initialize({
         if (prodDate !== undefined) {
           badges.push({
             text: prodDate,
-            icon: PROD_ICON,
+            icon: './images/build.svg',
             color: null,
           })
         }
@@ -51,7 +46,7 @@ window.TrelloPowerUp.initialize({
         if (installDate !== undefined) {
           badges.push({
             text: installDate,
-            icon: INSTALL_ICON,
+            icon: './images/home-build.svg',
             color: null,
           })
         }
