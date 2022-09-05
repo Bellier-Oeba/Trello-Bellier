@@ -67,4 +67,41 @@ window.TrelloPowerUp.initialize({
       })
       .catch((error) => console.error(error));
   },
+  'list-sorters': (t) => {
+    return t
+      .list('id')
+      .then(() => {
+        return [{
+          text: 'Date de fabrication',
+          callback: (t, opts) => {
+            const cards = [];
+
+            opts.cards.forEach(c => {
+              t.get(c.id, 'shared', 'prod-date')
+                .then((data) => {
+                  cards.push({
+                    id: c.id,
+                    date: Number(data.slice(-2))
+                  })
+                })
+            });
+
+            cards.sort((a, b) => {
+              if (a.date > b.date) {
+                return 1;
+              } else if (b.date > a.date) {
+                return -1;
+              }
+              return 0;
+            });
+
+            return {
+              sortedIds: cards.map((c) => {
+                return c.id;
+              })
+            };
+          }
+        }];
+      });
+  }
 });
