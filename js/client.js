@@ -1,10 +1,13 @@
-var GRAY_ICON = 'https://cdn.hyperdev.com/us-east-1%3A3d31b21c-01a0-4da2-8827-4bc6e88b7618%2Ficon-gray.svg';
+const STAIR_ICON = 'https://raw.githubusercontent.com/Bellier-Oeba/Trello-Bellier/gh-pages/images/stairs.svg';
+const COMMAND_ICON = 'https://raw.githubusercontent.com/Bellier-Oeba/Trello-Bellier/gh-pages/images/buy.svg';
+const PROD_ICON = 'https://raw.githubusercontent.com/Bellier-Oeba/Trello-Bellier/gh-pages/images/build.svg';
+const INSTALL_ICON = 'https://raw.githubusercontent.com/Bellier-Oeba/Trello-Bellier/gh-pages/images/home-build.svg';
 
 window.TrelloPowerUp.initialize({
   'card-back-section': (t, options) => {
     return {
       title: 'Bellier',
-      icon: GRAY_ICON,
+      icon: STAIR_ICON,
       content: {
         type: 'iframe',
         url: t.signUrl('./section.html'),
@@ -14,7 +17,7 @@ window.TrelloPowerUp.initialize({
   },
   'card-badges': (t, opts) => {
     let commandDate, prodDate, installDate;
-    t.get('card', 'shared', 'command-date')
+    return t.get('card', 'shared', 'command-date')
       .then((data) => {
         commandDate = Number(data.slice(-2));
         t.get('card', 'shared', 'prod-date')
@@ -25,29 +28,35 @@ window.TrelloPowerUp.initialize({
       })
       .then((data) => {
         installDate = data;
-      });
 
-    return t
-      .card('name')
-      .get('name')
-      .then(function (cardName) {
-        console.log('We just loaded the card name for fun: ' + cardName);
-        return [{
-            text: 'Commandes Sem ' + commandDate,
-            icon: GRAY_ICON,
+        // Now, build badges list
+        const badges = [];
+
+        if (commandDate !== undefined) {
+          badges.push({
+            text: commandDate,
+            icon: COMMAND_ICON,
             color: null,
-          },
-          {
-            text: 'Prod Sem ' + prodDate,
-            icon: GRAY_ICON,
+          })
+        }
+
+        if (prodDate !== undefined) {
+          badges.push({
+            text: prodDate,
+            icon: PROD_ICON,
             color: null,
-          },
-          {
-            text: 'Pose ' + installDate,
-            icon: GRAY_ICON,
+          })
+        }
+
+        if (installDate !== undefined) {
+          badges.push({
+            text: installDate,
+            icon: INSTALL_ICON,
             color: null,
-          }
-        ];
+          })
+        }
+
+        return badges;
       });
   },
 });
