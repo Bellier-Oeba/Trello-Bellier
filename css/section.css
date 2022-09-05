@@ -1,8 +1,8 @@
 .bel-content {
-    padding: .2rem;
+    padding: .1rem;
     display: flex;
     flex-direction: row;
-    gap: .7rem;
+    gap: .6rem;
 }
 
 .bel-input {
