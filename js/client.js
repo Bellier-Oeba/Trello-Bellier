@@ -1,8 +1,13 @@
+const STAIR_ICON = 'https://raw.githubusercontent.com/Bellier-Oeba/Trello-Bellier/gh-pages/images/stairs.svg';
+const COMMAND_ICON = 'https://raw.githubusercontent.com/Bellier-Oeba/Trello-Bellier/gh-pages/images/buy.svg';
+const PROD_ICON = 'https://raw.githubusercontent.com/Bellier-Oeba/Trello-Bellier/gh-pages/images/build.svg';
+const INSTALL_ICON = 'https://raw.githubusercontent.com/Bellier-Oeba/Trello-Bellier/gh-pages/images/home-build.svg';
+
 window.TrelloPowerUp.initialize({
   'card-back-section': (t, options) => {
     return {
       title: 'Bellier',
-      icon: './images/stairs.svg',
+      icon: STAIR_ICON,
       content: {
         type: 'iframe',
         url: t.signUrl('./section.html'),
@@ -30,7 +35,7 @@ window.TrelloPowerUp.initialize({
         if (commandDate !== undefined) {
           badges.push({
             text: commandDate,
-            icon: './images/buy.svg',
+            icon: COMMAND_ICON,
             color: null,
           })
         }
@@ -38,7 +43,7 @@ window.TrelloPowerUp.initialize({
         if (prodDate !== undefined) {
           badges.push({
             text: prodDate,
-            icon: './images/build.svg',
+            icon: PROD_ICON,
             color: null,
           })
         }
@@ -46,12 +51,13 @@ window.TrelloPowerUp.initialize({
         if (installDate !== undefined) {
           badges.push({
             text: installDate,
-            icon: './images/home-build.svg',
+            icon: INSTALL_ICON,
             color: null,
           })
         }
 
         return badges;
-      });
+      })
+      .catch((error) => console.log(error));
   },
 });
