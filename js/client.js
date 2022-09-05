@@ -12,7 +12,10 @@ window.TrelloPowerUp.initialize({
   },
   'card-badges': (t, opts) => {
     let commandDate, prodDate, installDate;
-    return t.get('command-date')
+    return t
+    .card('name')
+    .get('name')
+    .get('command-date')
       .then((data) => {
         console.log(data);
         commandDate = Number(data.slice(-2));
