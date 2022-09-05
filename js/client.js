@@ -20,19 +20,19 @@ window.TrelloPowerUp.initialize({
         return t.get(cardId, 'shared', 'command-date');
       })
       .then((data) => {
-        if (data !== undefined) {
+        if (data !== undefined || data !== '') {
           commandDate = Number(data.slice(-2));
         }
         return t.get(cardId, 'shared', 'prod-date');
       })
       .then((data) => {
-        if (data !== undefined) {
+        if (data !== undefined || data !== '') {
           prodDate = Number(data.slice(-2));
         }
         return t.get(cardId, 'shared', 'install-date');
       })
       .then((data) => {
-        if (data !== undefined) {
+        if (data !== undefined || data !== '') {
           installDate = data;
         }
 
@@ -81,7 +81,7 @@ window.TrelloPowerUp.initialize({
                 .then((data) => {
                   cards.push({
                     id: c.id,
-                    date: Number(data.slice(-2))
+                    date: Number(data.slice(-2)) || 60
                   })
                 })
             });
