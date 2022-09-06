@@ -1,3 +1,24 @@
+const getBadgeColor = (value) => {
+  if (value <= 1) {
+    return 'red';
+  } else if (value == 2) {
+    return 'orange'
+  } else if (value == 3) {
+    return 'yellow'
+  }
+
+  return null;
+}
+
+const getWeekBadgeColor = (date) => {
+  // Get current week
+  const now = new Date();
+  const onejan = new Date(now.getFullYear(), 0, 1);
+  const week = Math.ceil((((now.getTime() - onejan.getTime()) / 86400000) + onejan.getDay() + 1) / 7);
+
+  return getBadgeColor(date - week);
+}
+
 window.TrelloPowerUp.initialize({
   'card-back-section': (t, options) => {
     return {
@@ -41,17 +62,17 @@ window.TrelloPowerUp.initialize({
 
         if (commandDate !== undefined) {
           badges.push({
-            text: 'Sem ' + commandDate,
+            text: 'S' + commandDate,
             icon: './images/buy.svg',
-            color: null,
+            color: getWeekBadgeColor(commandDate),
           })
         }
 
         if (prodDate !== undefined) {
           badges.push({
-            text: 'Sem ' + prodDate,
+            text: 'S' + prodDate,
             icon: './images/build.svg',
-            color: null,
+            color: getWeekBadgeColor(prodDate),
           })
         }
 
