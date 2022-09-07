@@ -16,7 +16,7 @@ const getWeekBadgeColor = (date) => {
   const onejan = new Date(now.getFullYear(), 0, 1);
   const week = Math.ceil((((now.getTime() - onejan.getTime()) / 86400000) + onejan.getDay() + 1) / 7);
 
-  return getBadgeColor(date - week);
+  return getBadgeColor((date - week) - 1);
 }
 
 window.TrelloPowerUp.initialize({
