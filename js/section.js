@@ -4,28 +4,26 @@ const prod = document.getElementById('prod');
 const command = document.getElementById('command');
 const install = document.getElementById('install');
 
-const getISOWeeks = (y) => {
-  let d = new Date(y, 0, 1);
-  let isLeap = new Date(y, 1, 29).getMonth() === 1;
-  return d.getDay() === 4 || isLeap && d.getDay() === 3 ? 53 : 52
+const weekToSubtract = 2;
+
+const subtractWeeks = (date) => {
+  const week = Number(date.slice(-2));
+  const year = Number(date.slice(0, 4));
+  
+  let newDate = new Date(year, 0).getTime() + week * 7 * 24 * 60 * 60 * 1000
+  newDate = newDate - (weekToSubtract * 604800000)
+  
+  const now = new Date(newDate);
+  const onejan = new Date(now.getFullYear(), 0, 1);
+  const weekNumber = Math.ceil((((now.getTime() - onejan.getTime()) / 86400000) + onejan.getDay() + 1) / 7) - 1;
+
+  if (weekNumber === 0) weekNumber = 1
+
+  return now.getFullYear() + '-W' + ('00' + weekNumber).slice(-2);
 }
 
 prod.addEventListener('change', () => {
-  let week = Number(prod.value.slice(-2));
-  let year = prod.value.slice(0, 4);
-
-  if(week === 1) {
-    week = ('00' + getISOWeeks(year)).slice(-2) - 2
-    year = year - 1
-  } else if (week === 2) {
-    week = ('00' + getISOWeeks(year)).slice(-2) - 1
-    year = year - 1
-  } else {
-    week = ('00' + (week - 2)).slice(-2)
-    console.log(week)
-  }
-
-  command.value = year + '-W' + week;
+  command.value = subtractWeeks(prod.value);
 
   trello.set('card', 'shared', 'prod-date', prod.value);
   trello.set('card', 'shared', 'command-date', command.value);
