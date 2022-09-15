@@ -66,7 +66,7 @@ window.TrelloPowerUp.initialize({
 
         if (commandDate !== undefined) {
           badges.push({
-            text: 'S' + commandDate,
+            text: 'S' + Number(commandDate.slice(-2)),
             icon: './images/buy.svg',
             color: getWeekBadgeColor(commandDate),
           })
@@ -74,7 +74,7 @@ window.TrelloPowerUp.initialize({
 
         if (prodDate !== undefined) {
           badges.push({
-            text: 'S' + prodDate,
+            text: 'S' + Number(prodDate.slice(-2)),
             icon: './images/build.svg',
             color: getWeekBadgeColor(prodDate),
           })
