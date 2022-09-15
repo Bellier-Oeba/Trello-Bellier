@@ -1,22 +1,26 @@
-const getBadgeColor = (value) => {
-  if (value <= 1) {
+const getWeekBadgeColor = (date) => {
+  // Get year and week first
+  const endYear = Number(date.split('-')[0])
+  const endWeek = Number(date.split('-')[1].replace('W', ''))
+
+  // Get current date in miliseconds
+  const start = new Date()
+  // Convert target week and year in miliseconds
+  const end = new Date(endYear, 0).getTime() + endWeek * 7 * 24 * 60 * 60 * 1000
+  // Get the diff
+  const diff = Math.abs(end - start)
+  // And finally convert it to week again
+  const diffWeeks = Math.round(diff / 1000 / 60 / 60 / 24 / 7)
+  
+  if (diffWeeks <= 1) {
     return 'red';
-  } else if (value == 2) {
+  } else if (diffWeeks == 2) {
     return 'orange'
-  } else if (value == 3) {
+  } else if (diffWeeks == 3) {
     return 'yellow'
   }
 
   return null;
-}
-
-const getWeekBadgeColor = (date) => {
-  // Get current week
-  const now = new Date();
-  const onejan = new Date(now.getFullYear(), 0, 1);
-  const week = Math.ceil((((now.getTime() - onejan.getTime()) / 86400000) + onejan.getDay() + 1) / 7);
-
-  return getBadgeColor((date - week) + 1);
 }
 
 window.TrelloPowerUp.initialize({
@@ -42,13 +46,13 @@ window.TrelloPowerUp.initialize({
       })
       .then((data) => {
         if (data !== undefined && data !== '') {
-          commandDate = Number(data.slice(-2));
+          commandDate = data;
         }
         return t.get(cardId, 'shared', 'prod-date');
       })
       .then((data) => {
         if (data !== undefined && data !== '') {
-          prodDate = Number(data.slice(-2));
+          prodDate = data;
         }
         return t.get(cardId, 'shared', 'install-date');
       })
