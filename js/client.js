@@ -1,7 +1,7 @@
 const getWeekBadgeColor = (date) => {
   // Get year and week first
-  const endYear = Number(date.split('-')[0])
-  const endWeek = Number(date.split('-')[1].replace('W', ''))
+  const endWeek = Number(date.slice(-2));
+  const endYear = Number(date.slice(0, 4));
 
   // Get current date in miliseconds
   const start = new Date()
