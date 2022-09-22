@@ -15,7 +15,7 @@ const subtractWeeks = (date) => {
   
   const now = new Date(newDate);
   const onejan = new Date(now.getFullYear(), 0, 1);
-  const weekNumber = Math.ceil((((now.getTime() - onejan.getTime()) / 86400000) + onejan.getDay() + 1) / 7) - 1;
+  let weekNumber = Math.ceil((((now.getTime() - onejan.getTime()) / 86400000) + onejan.getDay() + 1) / 7) - 1;
 
   if (weekNumber === 0) weekNumber = 1
 
