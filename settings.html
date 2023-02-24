@@ -1,0 +1,29 @@
+<html>
+
+<head>
+  <link rel="stylesheet" href="https://p.trellocdn.com/power-up.min.css">
+  <link rel="stylesheet" href="./css/settings.css">
+  <script src="https://p.trellocdn.com/power-up.min.js"></script>
+</head>
+
+<body>
+  <div id="content" class="bel-content">
+    <label for="command">
+      Date de commandes:
+      <input type="week" id="command" name="command" class="bel-input" onfocus="this.showPicker()">
+    </label>
+
+    <label for="prod">
+      Date de fab:
+      <input type="week" id="prod" name="prod" class="bel-input" onfocus="this.showPicker()">
+    </label>
+
+    <label for="install">
+      Date de pose:
+      <input type="date" id="install" name="install" class="bel-input" onfocus="this.showPicker()">
+    </label>
+  </div>
+  <script src="./js/settings.js"></script>
+</body>
+
+</html>

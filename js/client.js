@@ -127,5 +127,12 @@ window.TrelloPowerUp.initialize({
           }
         }];
       });
+  },
+  'show-settings': (t, options) => {
+    return t.popup({
+      title: 'Paramètres Bellier',
+      url: './settings.html',
+      height: 184
+    });
   }
 });
