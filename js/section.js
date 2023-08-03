@@ -23,9 +23,13 @@ const subtractWeeks = (date) => {
 }
 
 prod.addEventListener('change', () => {
-  command.value = subtractWeeks(prod.value);
+  command.value = prod.value !== '' ? subtractWeeks(prod.value): '';
 
   trello.set('card', 'shared', 'prod-date', prod.value);
+  trello.set('card', 'shared', 'command-date', command.value);
+});
+
+command.addEventListener('change', () => {
   trello.set('card', 'shared', 'command-date', command.value);
 });
 
