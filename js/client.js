@@ -1,16 +1,21 @@
 const getWeekBadgeColor = (date) => {
   // Get year and week first
-  const endWeek = Number(date.slice(-2));
-  const endYear = Number(date.slice(0, 4));
+  const targetWeek = Number(date.slice(-2));
+  const targetYear = Number(date.slice(0, 4));
 
   // Get current date in miliseconds
-  const start = new Date()
+  const current = new Date()
   // Convert target week and year in miliseconds
-  const end = new Date(endYear, 0).getTime() + endWeek * 7 * 24 * 60 * 60 * 1000
+  const target = new Date(targetYear, 0).getTime() + targetWeek * 7 * 24 * 60 * 60 * 1000
   // Get the diff
-  const diff = Math.abs(end - start)
+  const diff = Math.abs(target - current)
   // And finally convert it to week again
   const diffWeeks = Math.round(diff / 1000 / 60 / 60 / 24 / 7)
+
+  // If target is before the current date
+  if(current > target) {
+    return 'red'
+  }
   
   if (diffWeeks <= 1) {
     return 'red';
