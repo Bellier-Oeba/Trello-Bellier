@@ -27,6 +27,10 @@ const getWeekBadgeColor = (date) => {
 	// Get the diff
 	const diffWeeks = Math.abs(targetWeek - currentWeek);
 
+	console.log(`Target week: ${targetWeek}`);
+	console.log(`Current week: ${currentWeek}`);
+	console.log(`Diff weeks: ${diffWeeks}`);
+
 	// If target is before the current date
 	if (currentWeek > targetWeek) {
 		return "red";
