@@ -24,27 +24,25 @@ const getWeekBadgeColor = (date) => {
 	const targetWeek = getWeek(date);
 	const currentWeek = getWeek(new Date());
 
+	let color = null;
+
 	// Get the diff
 	const diffWeeks = Math.abs(targetWeek - currentWeek);
 
-	// If target is before the current date
+	// If target is before the current date, return red
 	if (currentWeek > targetWeek) {
 		return "red";
 	}
 
-	if (diffWeeks === 2) {
-		return "orange";
-	}
-
-	if (diffWeeks === 3) {
-		return "yellow";
-	}
-
 	if (diffWeeks <= 1) {
-		return "red";
+		color = "red";
+	} else if (diffWeeks === 2) {
+		color = "orange";
+	} else if (diffWeeks === 3) {
+		color = "yellow";
 	}
 
-	return null;
+	return color;
 };
 
 window.TrelloPowerUp.initialize({
