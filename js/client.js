@@ -21,7 +21,7 @@ const getWeek = (givenDate) => {
 
 const getWeekBadgeColor = (date) => {
 	// Get year and week first
-	const targetWeek = Number(date.slice(-2));
+	const targetWeek = getWeek(date);
 	const currentWeek = getWeek(new Date());
 
 	// Get the diff
