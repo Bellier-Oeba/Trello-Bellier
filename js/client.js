@@ -1,28 +1,47 @@
+const getWeek = (givenDate) => {
+	const date = new Date(givenDate.getTime());
+	date.setHours(0, 0, 0, 0);
+	// Thursday in current week decides the year.
+	date.setDate(date.getDate() + 3 - ((date.getDay() + 6) % 7));
+	// January 4 is always in week 1.
+	const week1 = new Date(date.getFullYear(), 0, 4);
+	// Adjust to Thursday in week 1 and count number of weeks from date to week1.
+	return (
+		1 +
+		Math.round(
+			((date.getTime() - week1.getTime()) / 86400000 -
+				3 +
+				((week1.getDay() + 6) % 7)) /
+				7,
+		)
+	);
+};
+
 const getWeekBadgeColor = (date) => {
 	// Get year and week first
 	const targetWeek = Number(date.slice(-2));
-	const targetYear = Number(date.slice(0, 4));
+	const currentWeek = getWeek(new Date());
 
-	// Get current date in miliseconds
-	const current = new Date();
-	// Convert target week and year in miliseconds
-	const target =
-		new Date(targetYear, 0).getTime() + targetWeek * 7 * 24 * 60 * 60 * 1000;
 	// Get the diff
-	const diff = Math.abs(target - current);
+	const diff = Math.abs(targetWeek - currentWeek);
+
 	// And finally convert it to week again
 	const diffWeeks = Math.round(diff / 1000 / 60 / 60 / 24 / 7);
 
 	// If target is before the current date
-	if (current > target) {
+	if (currentWeek > targetWeek) {
 		return "red";
 	}
 
 	if (diffWeeks <= 1) {
 		return "red";
-	} else if (diffWeeks == 2) {
+	}
+
+	if (diffWeeks === 2) {
 		return "orange";
-	} else if (diffWeeks == 3) {
+	}
+
+	if (diffWeeks === 3) {
 		return "yellow";
 	}
 
@@ -42,7 +61,10 @@ window.TrelloPowerUp.initialize({
 		};
 	},
 	"card-badges": (t, opts) => {
-		let cardId, commandDate, prodDate, installDate;
+		let cardId;
+		let commandDate;
+		let prodDate;
+
 		return t
 			.card("id")
 			.get("id")
@@ -57,22 +79,12 @@ window.TrelloPowerUp.initialize({
 				return t.get(cardId, "shared", "prod-date");
 			})
 			.then((data) => {
-				if (data !== undefined && data !== "") {
-					prodDate = data;
-				}
-				return t.get(cardId, "shared", "install-date");
-			})
-			.then((data) => {
-				if (data !== undefined && data !== "") {
-					installDate = data;
-				}
-
 				// Now, build badges list
 				const badges = [];
 
 				if (commandDate !== undefined) {
 					badges.push({
-						text: "S" + Number(commandDate.slice(-2)),
+						text: `S${getWeek(commandDate)}`,
 						icon: "./images/buy.svg",
 						color: getWeekBadgeColor(commandDate),
 					});
@@ -80,17 +92,9 @@ window.TrelloPowerUp.initialize({
 
 				if (prodDate !== undefined) {
 					badges.push({
-						text: "S" + Number(prodDate.slice(-2)),
+						text: `S${getWeek(prodDate)}`,
 						icon: "./images/build.svg",
 						color: getWeekBadgeColor(prodDate),
-					});
-				}
-
-				if (installDate !== undefined) {
-					badges.push({
-						text: installDate,
-						icon: "./images/home-build.svg",
-						color: null,
 					});
 				}
 
@@ -108,17 +112,18 @@ window.TrelloPowerUp.initialize({
 
 						for (const c of opts.cards) {
 							const date = await t.get(c.id, "shared", "prod-date");
-							date ? Number(date.slice(-2)) : 60;
 							cards.push({
 								id: c.id,
-								date,
+								date: new Date(date),
 							});
 						}
 
 						cards.sort((a, b) => {
 							if (a.date > b.date) {
 								return 1;
-							} else if (b.date > a.date) {
+							}
+
+							if (b.date > a.date) {
 								return -1;
 							}
 							return 0;
