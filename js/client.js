@@ -81,6 +81,10 @@ window.TrelloPowerUp.initialize({
 				return t.get(cardId, "shared", "prod-date");
 			})
 			.then((data) => {
+				if (data !== undefined && data !== "") {
+					prodDate = data;
+				}
+
 				// Now, build badges list
 				const badges = [];
 
