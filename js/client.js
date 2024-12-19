@@ -1,6 +1,8 @@
 const getWeek = (givenDate) => {
-	const date = new Date(givenDate.getTime());
+	let date = new Date(givenDate);
+	date = givenDate.getTime();
 	date.setHours(0, 0, 0, 0);
+
 	// Thursday in current week decides the year.
 	date.setDate(date.getDate() + 3 - ((date.getDay() + 6) % 7));
 	// January 4 is always in week 1.
