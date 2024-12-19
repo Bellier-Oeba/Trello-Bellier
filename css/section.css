@@ -21,6 +21,7 @@
     .flatpickr, textarea {
         background-color : #323940!important; 
         box-shadow: inset 0 0 0 2px var(--ds-border-input,#9FADBC)!important;
+        color: #9FADBC!important;
       }
 
     .flatpickr::placeholder  {
