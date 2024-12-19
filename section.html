@@ -1,28 +1,33 @@
 <html>
 
 <head>
-  <link rel="stylesheet" href="https://p.trellocdn.com/power-up.min.css">
+  <link rel="stylesheet" href="./css/lib/trello-power-up.min.css">
+  <link rel="stylesheet" href="./css/lib/flatpickr-airbnb.css">
   <link rel="stylesheet" href="./css/section.css">
-  <script src="https://p.trellocdn.com/power-up.min.js"></script>
 </head>
 
 <body>
-  <div id="content" class="bel-content">
+  <div class="bel-content">
+
     <label for="command">
       Date de commandes:
-      <input type="week" id="command" name="command" class="bel-input" onfocus="this.showPicker()">
+      <input id="command" name="command" class="flatpickr flatpickr-input" type="text"
+        placeholder="Sélectionnez une semaine.." data-id="command" readonly="readonly">
     </label>
+
 
     <label for="prod">
       Date de fab:
-      <input type="week" id="prod" name="prod" class="bel-input" onfocus="this.showPicker()">
+      <input id="prod" name="prod" class="flatpickr flatpickr-input" type="text"
+        placeholder="Sélectionnez une semaine.." data-id="prod" readonly="readonly">
     </label>
 
-    <label for="install">
-      Date de pose:
-      <input type="date" id="install" name="install" class="bel-input" onfocus="this.showPicker()">
-    </label>
   </div>
+
+  <script src="./js/lib/trello-power-up.min.js"></script>
+  <script src="./js/lib/flatpickr.js"></script>
+  <script src="./js/lib/flatpickr-fr.js"></script>
+  <script src="./js/lib/flatpickr-weekselect.js"></script>
   <script src="./js/section.js"></script>
 </body>
 
