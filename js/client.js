@@ -1,6 +1,6 @@
 const getWeek = (givenDate) => {
 	let date = new Date(givenDate);
-	date = givenDate.getTime();
+	date = date.getTime();
 	date.setHours(0, 0, 0, 0);
 
 	// Thursday in current week decides the year.
