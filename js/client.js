@@ -56,43 +56,56 @@ window.TrelloPowerUp.initialize({
 	},
 	"card-badges": (t, opts) => {
 		let cardId;
-		let commandDate;
-		let prodDate;
+		// let commandDate;
+		// let prodDate;
+		let installDate;
 
 		return t
 			.card("id")
 			.get("id")
 			.then((data) => {
 				cardId = data;
-				return t.get(cardId, "shared", "command-date");
+				return t.get(cardId, "shared", "install-date");
 			})
+			// .then((data) => {
+			// 	cardId = data;
+			// 	return t.get(cardId, "shared", "command-date");
+			// })
+			// .then((data) => {
+			// 	if (data !== undefined && data !== "") {
+			// 		commandDate = data;
+			// 	}
+			// 	return t.get(cardId, "shared", "prod-date");
+			// })
 			.then((data) => {
 				if (data !== undefined && data !== "") {
-					commandDate = data;
-				}
-				return t.get(cardId, "shared", "prod-date");
-			})
-			.then((data) => {
-				if (data !== undefined && data !== "") {
-					prodDate = data;
+					installDate = data;
 				}
 
 				// Now, build badges list
 				const badges = [];
 
-				if (commandDate !== undefined) {
-					badges.push({
-						text: `S${getWeek(commandDate)}`,
-						icon: "./images/buy.svg",
-						color: getWeekBadgeColor(commandDate),
-					});
-				}
+				// if (commandDate !== undefined) {
+				// 	badges.push({
+				// 		text: `S${getWeek(commandDate)}`,
+				// 		icon: "./images/buy.svg",
+				// 		color: getWeekBadgeColor(commandDate),
+				// 	});
+				// }
 
-				if (prodDate !== undefined) {
+				// if (prodDate !== undefined) {
+				// 	badges.push({
+				// 		text: `S${getWeek(prodDate)}`,
+				// 		icon: "./images/build.svg",
+				// 		color: getWeekBadgeColor(prodDate),
+				// 	});
+				// }
+
+				if (installDate !== undefined) {
 					badges.push({
-						text: `S${getWeek(prodDate)}`,
+						text: `S${getWeek(installDate)}`,
 						icon: "./images/build.svg",
-						color: getWeekBadgeColor(prodDate),
+						color: getWeekBadgeColor(installDate),
 					});
 				}
 
@@ -104,12 +117,12 @@ window.TrelloPowerUp.initialize({
 		return t.list("id").then(() => {
 			return [
 				{
-					text: "Date de fabrication",
+					text: "Date de pose",
 					callback: async (t, opts) => {
 						const cards = [];
 
 						for (const c of opts.cards) {
-							const date = await t.get(c.id, "shared", "prod-date");
+							const date = await t.get(c.id, "shared", "install-date");
 							cards.push({
 								id: c.id,
 								date: new Date(date),

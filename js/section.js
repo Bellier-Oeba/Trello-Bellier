@@ -10,37 +10,50 @@ const pickerConfig = {
 	plugins: [new weekSelect({})],
 };
 
-const command = flatpickr("#command", {
+const install = flatpickr("#install", {
 	...pickerConfig,
 	onChange: [
 		(_, date) => {
-			trello.set("card", "shared", "command-date", date);
+			trello.set("card", "shared", "install-date", date);
 		},
 	],
 });
 
-const prod = flatpickr("#prod", {
-	...pickerConfig,
-	onChange: [
-		(_, date) => {
-			let commandDate = new Date(date);
-			commandDate.setDate(commandDate.getDate() - daysToSubtract);
-			commandDate = commandDate.toISOString().split("T")[0];
+// const command = flatpickr("#command", {
+// 	...pickerConfig,
+// 	onChange: [
+// 		(_, date) => {
+// 			trello.set("card", "shared", "command-date", date);
+// 		},
+// 	],
+// });
 
-			// Update the command date in command picker
-			command.setDate(commandDate);
+// const prod = flatpickr("#prod", {
+// 	...pickerConfig,
+// 	onChange: [
+// 		(_, date) => {
+// 			let commandDate = new Date(date);
+// 			commandDate.setDate(commandDate.getDate() - daysToSubtract);
+// 			commandDate = commandDate.toISOString().split("T")[0];
 
-			// Save new dates in the database
-			trello.set("card", "shared", "prod-date", date);
-			trello.set("card", "shared", "command-date", commandDate);
-		},
-	],
+// 			// Update the command date in command picker
+// 			command.setDate(commandDate);
+
+// 			// Save new dates in the database
+// 			trello.set("card", "shared", "prod-date", date);
+// 			trello.set("card", "shared", "command-date", commandDate);
+// 		},
+// 	],
+// });
+
+trello.get("card", "shared", "install-date").then((data) => {
+	install.setDate(data);
 });
 
-trello.get("card", "shared", "command-date").then((data) => {
-	command.setDate(data);
-});
+// trello.get("card", "shared", "command-date").then((data) => {
+// 	command.setDate(data);
+// });
 
-trello.get("card", "shared", "prod-date").then((data) => {
-	prod.setDate(data);
-});
+// trello.get("card", "shared", "prod-date").then((data) => {
+// 	prod.setDate(data);
+// });
