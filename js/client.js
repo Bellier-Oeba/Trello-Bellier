@@ -104,7 +104,7 @@ window.TrelloPowerUp.initialize({
 				if (installDate !== undefined) {
 					badges.push({
 						text: `S${getWeek(installDate)}`,
-						icon: "./images/build.svg",
+						icon: "./images/home-build.svg",
 						color: getWeekBadgeColor(installDate),
 					});
 				}
