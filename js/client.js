@@ -78,6 +78,7 @@ window.TrelloPowerUp.initialize({
 			// 	return t.get(cardId, "shared", "prod-date");
 			// })
 			.then((data) => {
+				console.log('card-data:', data);
 				if (data !== undefined && data !== "") {
 					installDate = data;
 				}
