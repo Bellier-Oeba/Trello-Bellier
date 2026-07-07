@@ -60,6 +60,8 @@ window.TrelloPowerUp.initialize({
 		// let prodDate;
 		let installDate;
 
+		t.get("card", "shared", "install-date").then((data) => {console.log(data)});
+
 		return t
 			.card("id")
 			.get("id")
